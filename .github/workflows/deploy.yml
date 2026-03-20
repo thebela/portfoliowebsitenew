@@ -40,6 +40,11 @@ jobs:
         run: |
           mkdir -p ~/.kube
           echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+          
+
+      - name: Test cluster access
+        run: kubectl get nodes
+        
 
       # ✅ 7. Deploy to Kubernetes
       - name: Deploy to Kubernetes
