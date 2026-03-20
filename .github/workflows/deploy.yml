@@ -28,12 +28,14 @@ jobs:
       # ✅ 4. Build Docker image
       - name: Build Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USER }}/portfolio:v2 .
+          docker build -t ${{ secrets.DOCKER_USER }}/portfolio:${{ github.sha }} .
+          docker tag ${{ secrets.DOCKER_USER }}/portfolio:${{ github.sha }} ${{ secrets.DOCKER_USER }}/portfolio:latest
 
       # ✅ 5. Push Docker image
       - name: Push Image
         run: |
-          docker push ${{ secrets.DOCKER_USER }}/portfolio:v2
+          docker push ${{ secrets.DOCKER_USER }}/portfolio:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USER }}/portfolio:latest
 
       # ✅ 6. Setup kubeconfig
       - name: Setup Kubeconfig
